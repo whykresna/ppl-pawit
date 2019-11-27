@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="tanggal_pengiriman">{{ trans('cruds.penjualan.fields.tanggal_pengiriman') }}</label>
-                <input class="form-control date {{ $errors->has('tanggal_pengiriman') ? 'is-invalid' : '' }}" type="text" name="tanggal_pengiriman" id="tanggal_pengiriman" value="{{ old('tanggal_pengiriman', $penjualan->tanggal_pengiriman) }}" required>
+                <input class="form-control {{ $errors->has('tanggal_pengiriman') ? 'is-invalid' : '' }}" type="text" name="tanggal_pengiriman" id="tanggal_pengiriman" value="{{ old('tanggal_pengiriman', $penjualan->tanggal_pengiriman) }}" required>
                 @if($errors->has('tanggal_pengiriman'))
                     <div class="invalid-feedback">
                         {{ $errors->first('tanggal_pengiriman') }}
@@ -74,4 +74,16 @@
 
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    @parent
+    <script>
+        $(document).ready(function () {
+            $('#tanggal_pengiriman').datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: new Date()
+            });
+        })
+    </script>
 @endsection
