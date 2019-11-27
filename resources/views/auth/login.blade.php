@@ -4,7 +4,7 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
+                <img src="{{ url('image/logo-pawit-login.png') }}" style="height: 128px; display: block; margin: 0 auto;" alt="">
 
                 <p class="text-muted">{{ trans('global.login') }}</p>
 
