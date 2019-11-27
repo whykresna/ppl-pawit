@@ -6,6 +6,8 @@ use App\Tengkulak;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Propaganistas\LaravelPhone\PhoneNumber;
+
 
 class UpdateTengkulakRequest extends FormRequest
 {
@@ -32,6 +34,7 @@ class UpdateTengkulakRequest extends FormRequest
             'nomor_telepon_tengkulak' => [
                 'min:11',
                 'max:18',
+                'phone:id',
                 'required',
             ],
             'email_tengkulak'         => [

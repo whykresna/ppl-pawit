@@ -6,6 +6,8 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Propaganistas\LaravelPhone\PhoneNumber;
+
 
 class UpdateUserRequest extends FormRequest
 {
@@ -28,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'phone_number' => [
                 'min:11',
                 'max:18',
+                'phone:id',
                 'required',
             ],
             'lahan_id'     => [
