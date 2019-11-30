@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Panen;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class HomeController
@@ -192,7 +193,7 @@ class HomeController
 
         $settings5 = [
             'chart_title'           => 'Grafik Jumlah Panen Buah Sawit / Bulan',
-            'chart_type'            => 'line',
+            'chart_type'            => 'bar',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\\Panen',
             'group_by_field'        => 'tanggal_panen',
@@ -209,7 +210,7 @@ class HomeController
 
         $settings6 = [
             'chart_title'           => 'Grafik Berat Bersih Panen Buah Sawit / Bulan',
-            'chart_type'            => 'line',
+            'chart_type'            => 'bar',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\\Panen',
             'group_by_field'        => 'tanggal_panen',
@@ -224,6 +225,18 @@ class HomeController
 
         $chart6 = new LaravelChart($settings6);
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6'));
+        $peramalans = Panen::all();
+        $total_bobot = Panen::sum('netto');
+        foreach ($peramalans as $peramalan) {
+            $bobot_buah = $peramalan->netto;
+            $jumlah_buah = $peramalan->jumlah_buah;
+            $persen_bobot = $bobot_buah / $total_bobot * 100;
+            $hasil_peramalan = $jumlah_buah * $persen_bobot * 100;
+        }
+
+
+
+
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6', 'hasil_peramalan'));
     }
 }

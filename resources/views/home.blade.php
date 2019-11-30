@@ -60,6 +60,15 @@
                             <h3>{!! $chart6->options['chart_title'] !!}</h3>
                             {!! $chart6->renderHtml() !!}
                         </div>
+                        <div class="col-md-12">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body pb-0">
+                                    <div class="text-value">{{$hasil_peramalan}}</div>
+                                    <div>Peramalan Jumlah Buah Tahun Depan</div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

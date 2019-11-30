@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label class="required" for="tanggal_panen">{{ trans('cruds.panen.fields.tanggal_panen') }}</label>
-                <input class="form-control date {{ $errors->has('tanggal_panen') ? 'is-invalid' : '' }}" type="text" name="tanggal_panen" id="tanggal_panen" value="{{ old('tanggal_panen') }}" autocomplete="off" required>
+                <input class="form-control {{ $errors->has('tanggal_panen') ? 'is-invalid' : '' }}" type="text" name="tanggal_panen" id="tanggal_panen" value="{{ old('tanggal_panen') }}" autocomplete="off" required>
                 @if($errors->has('tanggal_panen'))
                     <div class="invalid-feedback">
                         {{ $errors->first('tanggal_panen') }}
