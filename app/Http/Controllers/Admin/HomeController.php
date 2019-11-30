@@ -225,18 +225,14 @@ class HomeController
 
         $chart6 = new LaravelChart($settings6);
 
-        $peramalans = Panen::all();
-        $total_bobot = Panen::sum('netto');
-        foreach ($peramalans as $peramalan) {
-            $bobot_buah = $peramalan->netto;
-            $jumlah_buah = $peramalan->jumlah_buah;
-            $persen_bobot = $bobot_buah / $total_bobot * 100;
-            $hasil_peramalan = $jumlah_buah * $persen_bobot * 100;
+        $peramalans = Panen::all('netto', 'jumlah_buah');
+        $sum_netto = $peramalans->sum('netto');
+        $total = 0;
+        foreach ($peramalans as $peramalan){
+            $total += $peramalan->jumlah_buah * $peramalan->netto / $sum_netto;
+            $hasil = round($total) * 12;
         }
 
-
-
-
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6', 'hasil_peramalan'));
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6', 'peramalan', 'hasil'));
     }
 }

@@ -63,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="card text-white bg-primary">
                                 <div class="card-body pb-0">
-                                    <div class="text-value">{{$hasil_peramalan}}</div>
+                                    <div class="text-value">{{ $hasil }}</div>
                                     <div>Peramalan Jumlah Buah Tahun Depan</div>
                                     <br />
                                 </div>
