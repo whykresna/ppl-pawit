@@ -225,14 +225,35 @@ class HomeController
 
         $chart6 = new LaravelChart($settings6);
 
-        $peramalans = Panen::all('netto', 'jumlah_buah');
-        $sum_netto = $peramalans->sum('netto');
-        $total = 0;
+        $peramalans = Panen::get()->groupBy(function($q){
+            return Carbon::parse($q->tanggal_panen)->format('Y');
+        });
+
+        $max_netto = 0;
+        $max_buah = 0;
+        $panens = [];
+        $jumlah_buah = 0;
         foreach ($peramalans as $peramalan){
-            $total += $peramalan->jumlah_buah * $peramalan->netto / $sum_netto;
-            $hasil = round($total) * 12;
+            $panen = [
+                'netto' => $peramalan->sum('netto'),
+                'buah' => $peramalan->sum('jumlah_buah')
+            ];
+            $jumlah_buah += $peramalan->sum('jumlah_buah');
+            array_push($panens, $panen);
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6', 'peramalan', 'hasil'));
+        $panens = collect($panens);
+
+        $nettos = $panens->sortByDesc('netto');
+        $buahs = $panens->sortByDesc('jumlah_buah');
+        $hasil = 0;
+
+        for($i=0; $i<$panens->count(); $i++){
+            $hasil += ($nettos[$i]['netto'] * $buahs[$i]['buah']) / $jumlah_buah;
+        }
+
+        $hasil = ceil($hasil);
+
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'chart6', 'hasil'));
     }
 }
